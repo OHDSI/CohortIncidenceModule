@@ -55,7 +55,8 @@ execute <- function(jobContext) {
   
   buildOptions <- CohortIncidence::buildOptions(cohortTable = paste0(jobContext$moduleExecutionSettings$workDatabaseSchema, '.', jobContext$moduleExecutionSettings$cohortTableNames$cohortTable),
                                                 cdmDatabaseSchema = jobContext$moduleExecutionSettings$cdmDatabaseSchema,
-                                                sourceName = as.character(jobContext$moduleExecutionSettings$databaseId))
+                                                sourceName = as.character(jobContext$moduleExecutionSettings$databaseId),
+                                                refId = 1)
   
   executeResults <- CohortIncidence::executeAnalysis(connection = connection,
                                                      incidenceDesign = irDesign,

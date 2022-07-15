@@ -9,8 +9,8 @@ incidence_summary,tar_start_with,varchar(10),no,no,yes
 incidence_summary,tar_start_offset,bigint,no,no,yes
 incidence_summary,tar_end_with,varchar(10),no,no,yes
 incidence_summary,tar_end_offset,bigint,no,no,yes
-incidence_summary,subgruop_id,bigint,no,no,yes
-incidence_summary,subgroup_name,carchar(255),no,no,yes
+incidence_summary,subgroup_id,bigint,no,no,yes
+incidence_summary,subgroup_name,varchar(255),no,no,yes
 incidence_summary,outcome_id,bigint,no,no,yes
 incidence_summary,outcome_cohort_definition_id,bigint,no,no,yes
 incidence_summary,outcome_name,varchar(255),no,no,yes
@@ -23,9 +23,9 @@ incidence_summary,start_year,int,no,no,yes
 incidence_summary,persons_at_risk_pe,bigint,no,no,yes
 incidence_summary,persons_at_risk,bigint,no,no,yes
 incidence_summary,person_days_pe,bigint,no,no,yes
-incidence_summary,person_days_pe,bigint,no,no,yes
+incidence_summary,person_days,bigint,no,no,yes
 incidence_summary,person_outcomes_pe,bigint,no,no,yes
-incidence_summary,person_outcomes_pe,bigint,no,no,yes
+incidence_summary,person_outcomes,bigint,no,no,yes
 incidence_summary,outcomes_pe,bigint,no,no,yes
 incidence_summary,outcomes,bigint,no,no,yes
 incidence_summary,incidence_proportion_p100p,float,no,no,yes
