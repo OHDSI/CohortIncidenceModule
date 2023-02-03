@@ -364,6 +364,12 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": []
-    }
+    },
+	"testthat" : {
+		"Package" : "testthat",
+		"Version" : "3.1.4",
+		"Source" : "Repository",
+		"Repository" : "CRAN"
+	}
   }
 }
