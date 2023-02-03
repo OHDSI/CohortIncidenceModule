@@ -9,6 +9,17 @@
     ]
   },
   "Packages": {
+    "CohortGenerator": {
+      "Package": "CohortGenerator",
+      "Version": "0.7.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "CohortGenerator",
+      "RemoteUsername": "ohdsi",
+      "RemoteRef": "v0.7.0",
+      "Requirements": []
+    },
     "CohortIncidence": {
       "Package": "CohortIncidence",
       "Version": "3.1.2",
@@ -20,16 +31,6 @@
       "RemoteRef": "v3.1.2",
       "Requirements": []
     },
-    "CohortGenerator" : {
-      "Package" : "CohortGenerator",
-      "Version" : "0.5.0",
-      "Source" : "GitHub",
-      "RemoteType" : "github",
-      "RemoteHost" : "api.github.com",
-      "RemoteRepo" : "CohortGenerator",
-      "RemoteUsername" : "ohdsi",
-      "RemoteRef" : "v0.5.0"
-    },
     "DBI": {
       "Package": "DBI",
       "Version": "1.1.2",
@@ -39,9 +40,21 @@
     },
     "DatabaseConnector": {
       "Package": "DatabaseConnector",
-      "Version": "5.0.4",
+      "Version": "5.1.0",
       "Source": "Repository",
       "Repository": "CRAN",
+      "Requirements": []
+    },
+    "Eunomia": {
+      "Package": "Eunomia",
+      "Version": "1.0.2",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "Eunomia",
+      "RemoteUsername": "ohdsi",
+      "RemoteRef": "v1.0.2",
+      "Hash": "cbb40e27474903a9486a378fb0e3e016",
       "Requirements": []
     },
     "ParallelLogger": {
@@ -135,6 +148,12 @@
       "Repository": "CRAN",
       "Requirements": []
     },
+    "desc": {
+      "Package": "desc",
+      "Version": "1.4.2",
+      "Source": "Repository",
+      "Requirements": []
+    },
     "digest": {
       "Package": "digest",
       "Version": "0.6.29",
@@ -161,6 +180,12 @@
       "Version": "1.0.3",
       "Source": "Repository",
       "Repository": "CRAN",
+      "Requirements": []
+    },
+    "fs": {
+      "Package": "fs",
+      "Version": "1.6.0",
+      "Source": "Repository",
       "Requirements": []
     },
     "generics": {
@@ -291,6 +316,13 @@
     "stringr": {
       "Package": "stringr",
       "Version": "1.4.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": []
+    },
+    "testthat": {
+      "Package": "testthat",
+      "Version": "3.1.4",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": []

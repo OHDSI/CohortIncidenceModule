@@ -7,7 +7,7 @@ createCohortIncidenceModuleSpecifications <- function(irDesign = NULL) {
   }
 
   specifications <- list(module = "CohortIncidenceModule",
-                         version = "0.0.5",
+                         version = "0.0.6",
                          remoteRepo = "github.com",
                          remoteUsername = "ohdsi",
                          settings = analysis)
