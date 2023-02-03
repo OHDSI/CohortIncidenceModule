@@ -53,8 +53,7 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "OHDSI",
       "RemoteRepo": "Eunomia",
-      "RemoteRef": "main",
-      "RemoteSha": "v1.0.2",
+      "RemoteRef": "v1.0.2",
       "Requirements": []
     },
     "ParallelLogger": {
