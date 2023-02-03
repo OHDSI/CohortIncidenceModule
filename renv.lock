@@ -370,6 +370,16 @@
 		"Version" : "3.1.4",
 		"Source" : "Repository",
 		"Repository" : "CRAN"
-	}
+	},
+	"Eunomia" : {
+		"Package" : "Eunomia",
+		"Version" : "1.0.2",
+		"Source" : "GitHub",
+		"RemoteType" : "github",
+		"RemoteHost" : "api.github.com",
+		"RemoteRepo" : "Eunomia",
+		"RemoteUsername" : "ohdsi",
+		"RemoteRef" : "v1.0.2"
+	}	
   }
 }
