@@ -1,7 +1,7 @@
 bioconductor.version:
 external.libraries:
-ignored.packages: Eunomia, Strategus
-package.dependency.fields: Imports, Depends, LinkingTo
+ignored.packages:
+package.dependency.fields: Imports, Depends, Suggests, LinkingTo
 r.version:
 snapshot.type: implicit
 use.cache: TRUE
