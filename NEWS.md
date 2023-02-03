@@ -1,4 +1,4 @@
-CohortIncidenceModule 0.1.0
+CohortIncidenceModule 0.0.6
 =======================
 
-Initial version
+Initial version plus updates to R dependencies
