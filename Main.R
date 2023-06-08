@@ -38,6 +38,27 @@ validate <- function(jobContext) {
 }
 
 execute <- function(jobContext) {
+  
+  enforceMinCellValue <- function(data, fieldName, minValues, silent = FALSE) {
+    toCensor <- !is.na(data[, fieldName]) & data[, fieldName] < minValues & data[, fieldName] != 0
+    if (!silent) {
+      percent <- round(100 * sum(toCensor)/nrow(data), 1)
+      ParallelLogger::logInfo("   censoring ",
+                              sum(toCensor),
+                              " values (",
+                              percent,
+                              "%) from ",
+                              fieldName,
+                              " because value below minimum")
+    }
+    if (length(minValues) == 1) {
+      data[toCensor, fieldName] <- -minValues
+    } else {
+      data[toCensor, fieldName] <- -minValues[toCensor]
+    }
+    return(data)
+  }
+  
   rlang::inform("Validating inputs")
   validate(jobContext)
   
@@ -76,8 +97,17 @@ execute <- function(jobContext) {
     executeResults$database_id <- character(0)
   }
 
-  #TODO: restrict executeREsults to minCellCount
-  
+  # apply minCellCount to  executeResults
+  minCellCount <- jobContext$moduleExecutionSettings$minCellCount;
+  if (minCellCount > 0) {
+    executeResults <- enforceMinCellValue(executeResults, "persons_at_risk_pe", minCellCount)
+    executeResults <- enforceMinCellValue(executeResults, "persons_at_risk", minCellCount)
+    executeResults <- enforceMinCellValue(executeResults, "person_outcomes_pe", minCellCount)
+    executeResults <- enforceMinCellValue(executeResults, "person_outcomes", minCellCount)
+    executeResults <- enforceMinCellValue(executeResults, "outcomes_pe", minCellCount)
+    executeResults <- enforceMinCellValue(executeResults, "outcomes", minCellCount)
+  }
+
   readr::write_csv(executeResults, file.path(exportFolder,"incidence_summary.csv")) # this will be renamed later
 
   moduleInfo <- ParallelLogger::loadSettingsFromJson("MetaData.json")
