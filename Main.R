@@ -100,12 +100,12 @@ execute <- function(jobContext) {
   # apply minCellCount to  executeResults
   minCellCount <- jobContext$moduleExecutionSettings$minCellCount;
   if (minCellCount > 0) {
-    executeResults <- enforceMinCellValue(executeResults, "persons_at_risk_pe", minCellCount)
-    executeResults <- enforceMinCellValue(executeResults, "persons_at_risk", minCellCount)
-    executeResults <- enforceMinCellValue(executeResults, "person_outcomes_pe", minCellCount)
-    executeResults <- enforceMinCellValue(executeResults, "person_outcomes", minCellCount)
-    executeResults <- enforceMinCellValue(executeResults, "outcomes_pe", minCellCount)
-    executeResults <- enforceMinCellValue(executeResults, "outcomes", minCellCount)
+    executeResults <- enforceMinCellValue(executeResults, "PERSONS_AT_RISK_PE", minCellCount)
+    executeResults <- enforceMinCellValue(executeResults, "PERSONS_AT_RISK", minCellCount)
+    executeResults <- enforceMinCellValue(executeResults, "PERSON_OUTCOMES_PE", minCellCount)
+    executeResults <- enforceMinCellValue(executeResults, "PERSON_OUTCOMES", minCellCount)
+    executeResults <- enforceMinCellValue(executeResults, "OUTCOMES_PE", minCellCount)
+    executeResults <- enforceMinCellValue(executeResults, "OUTCOMES", minCellCount)
   }
 
   readr::write_csv(executeResults, file.path(exportFolder,"incidence_summary.csv")) # this will be renamed later
