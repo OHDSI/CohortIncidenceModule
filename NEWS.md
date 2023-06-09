@@ -1,3 +1,10 @@
+CohortIncidenceModule 0.0.7
+=======================
+
+Updated reference to CohortIncidence 3.1.3
+Implement min cell count logic.
+
+
 CohortIncidenceModule 0.0.6
 =======================
 
