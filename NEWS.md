@@ -1,3 +1,8 @@
+CohortIncidenceModule 0.0.8
+=======================
+
+Updated reference to CohortIncidence 3.1.4
+
 CohortIncidenceModule 0.0.7
 =======================
 
