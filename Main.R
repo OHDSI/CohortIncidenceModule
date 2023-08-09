@@ -51,11 +51,19 @@ execute <- function(jobContext) {
                               fieldName,
                               " because value below minimum")
     }
-    if (length(minValues) == 1) {
-      data[toCensor, fieldName] <- -minValues
-    } else {
-      data[toCensor, fieldName] <- -minValues[toCensor]
-    }
+    data[toCensor, fieldName] <- -minValues
+    return(data)
+  }
+  
+  enforceMinCellStats <- function(data) {
+    # replace rates with NA for cencored outcomes
+    toCensor <- data[, "OUTCOMES" < 0]
+    data[toCensor, "INCIDENCE_RATE_P100PY"] <- NA
+
+    # replace proportions with NA for censored person_outcomes
+    toCensor <- data[, "PERSON_OUTCOMES" < 0]
+    data[toCensor, "INCIDENCE_PROPORTION_P100P"] <- NA
+    
     return(data)
   }
   
@@ -106,6 +114,7 @@ execute <- function(jobContext) {
     executeResults <- enforceMinCellValue(executeResults, "PERSON_OUTCOMES", minCellCount)
     executeResults <- enforceMinCellValue(executeResults, "OUTCOMES_PE", minCellCount)
     executeResults <- enforceMinCellValue(executeResults, "OUTCOMES", minCellCount)
+    executeResults <- enforceMinCellStats(executeResults)
   }
 
   readr::write_csv(executeResults, file.path(exportFolder,"incidence_summary.csv")) # this will be renamed later
