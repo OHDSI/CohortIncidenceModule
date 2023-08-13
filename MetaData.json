@@ -1,6 +1,6 @@
 {
   "Name": "CohortIncidenceModule",
-  "Version": "0.1.0-1",
+  "Version": "0.1.0-2",
   "Dependencies": ["CohortGeneratorModule"],
   "TablePrefix": "ci_"
 }
