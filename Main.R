@@ -57,11 +57,11 @@ execute <- function(jobContext) {
   
   enforceMinCellStats <- function(data) {
     # replace rates with NA for cencored outcomes
-    toCensor <- data[, "OUTCOMES" < 0]
+    toCensor <- data[, "OUTCOMES"]  < 0
     data[toCensor, "INCIDENCE_RATE_P100PY"] <- NA
 
     # replace proportions with NA for censored person_outcomes
-    toCensor <- data[, "PERSON_OUTCOMES" < 0]
+    toCensor <- data[, "PERSON_OUTCOMES"]  < 0
     data[toCensor, "INCIDENCE_PROPORTION_P100P"] <- NA
     
     return(data)
