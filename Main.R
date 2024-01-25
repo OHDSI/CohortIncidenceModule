@@ -150,6 +150,8 @@ createDataModelSchema <- function(jobContext) {
   checkmate::assert_class(jobContext$moduleExecutionSettings$resultsConnectionDetails, "ConnectionDetails")
   checkmate::assert_string(jobContext$moduleExecutionSettings$resultsDatabaseSchema)
   connectionDetails <- jobContext$moduleExecutionSettings$resultsConnectionDetails
+  # Workaround for issue https://github.com/tidyverse/vroom/issues/519:
+  readr::local_edition(1)  
   moduleInfo <- getModuleInfo()
   tablePrefix <- moduleInfo$TablePrefix
   resultsDatabaseSchema <- jobContext$moduleExecutionSettings$resultsDatabaseSchema
