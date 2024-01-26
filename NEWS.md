@@ -1,6 +1,10 @@
-CohortIncidenceModule 0.3.0
+CohortIncidenceModule 0.4.0
 =======================
 - Using renv project profiles to manage core packages required for module execution vs. those that are needed for development purposes.
+
+CohortIncidenceModule 0.3.0
+=======================
+- Fixed censoring logic
 
 CohortIncidenceModule 0.2.0
 =======================
