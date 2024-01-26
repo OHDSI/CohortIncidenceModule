@@ -1,3 +1,11 @@
+CohortIncidenceModule 0.3.0
+=======================
+- Using renv project profiles to manage core packages required for module execution vs. those that are needed for development purposes.
+
+CohortIncidenceModule 0.2.0
+=======================
+- Updated to use CohortIncidence v3.2.0
+
 CohortIncidenceModule 0.1.0
 =======================
 - Updated module to use HADES wide lock file and updated to use renv v1.0.2
