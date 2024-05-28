@@ -1,3 +1,7 @@
+CohortIncidenceModule 0.4.1
+=======================
+- Adding DuckDB to renv.lock file
+
 CohortIncidenceModule 0.4.0
 =======================
 - Using renv project profiles to manage core packages required for module execution vs. those that are needed for development purposes.
