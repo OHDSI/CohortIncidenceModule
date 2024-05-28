@@ -339,6 +339,12 @@
       ],
       "Hash": "eb5742d256a0d9306d85ea68756d8187"
     },
+    "duckdb": {
+      "Package": "duckdb",
+      "Version": "0.10.2",
+      "Source": "Repository",
+      "Repository": "CRAN"
+    },
     "fansi": {
       "Package": "fansi",
       "Version": "1.0.4",
