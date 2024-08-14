@@ -78,6 +78,8 @@ execute <- function(jobContext) {
     return(data)
   }
 
+  refId <- 1 # this should be part of execution settings
+  
   rlang::inform("Validating inputs")
   validate(jobContext)
 
@@ -86,7 +88,8 @@ execute <- function(jobContext) {
   on.exit(DatabaseConnector::disconnect(connection))
 
   # extract CohortIncidence design from jobContext
-  irDesign <- as.character(CohortIncidence::IncidenceDesign$new(jobContext$settings$irDesign)$asJSON())
+  irDesign <- CohortIncidence::IncidenceDesign$new(jobContext$settings$irDesign)
+  irDesignJSON <- as.character(irDesign$asJSON())  
 
   # construct buildOptions from executionSettings
   # Questions:
@@ -97,12 +100,12 @@ execute <- function(jobContext) {
     cohortTable = paste0(jobContext$moduleExecutionSettings$workDatabaseSchema, ".", jobContext$moduleExecutionSettings$cohortTableNames$cohortTable),
     cdmDatabaseSchema = jobContext$moduleExecutionSettings$cdmDatabaseSchema,
     sourceName = as.character(jobContext$moduleExecutionSettings$databaseId),
-    refId = 1
+    refId = refId
   )
 
   executeResults <- CohortIncidence::executeAnalysis(
     connection = connection,
-    incidenceDesign = irDesign,
+    incidenceDesign = irDesignJSON,
     buildOptions = buildOptions
   )
   # Export the results
@@ -114,35 +117,46 @@ execute <- function(jobContext) {
   rlang::inform("Export data")
 
 
-  if (nrow(executeResults) > 0) {
-    executeResults$database_id <- jobContext$moduleExecutionSettings$databaseId
-  } else {
-    executeResults$database_id <- character(0)
-  }
-
   # apply minCellCount to  executeResults
   minCellCount <- jobContext$moduleExecutionSettings$minCellCount
   if (minCellCount > 0) {
-    executeResults <- enforceMinCellValue(executeResults, "PERSONS_AT_RISK_PE", minCellCount)
-    executeResults <- enforceMinCellValue(executeResults, "PERSONS_AT_RISK", minCellCount)
-    executeResults <- enforceMinCellValue(executeResults, "PERSON_OUTCOMES_PE", minCellCount)
-    executeResults <- enforceMinCellValue(executeResults, "PERSON_OUTCOMES", minCellCount)
-    executeResults <- enforceMinCellValue(executeResults, "OUTCOMES_PE", minCellCount)
-    executeResults <- enforceMinCellValue(executeResults, "OUTCOMES", minCellCount)
-    executeResults <- enforceMinCellStats(executeResults)
+    executeResults$incidence_summary <- enforceMinCellValue(executeResults$incidence_summary, "PERSONS_AT_RISK_PE", minCellCount)
+    executeResults$incidence_summary <- enforceMinCellValue(executeResults$incidence_summary, "PERSONS_AT_RISK", minCellCount)
+    executeResults$incidence_summary <- enforceMinCellValue(executeResults$incidence_summary, "PERSON_OUTCOMES_PE", minCellCount)
+    executeResults$incidence_summary <- enforceMinCellValue(executeResults$incidence_summary, "PERSON_OUTCOMES", minCellCount)
+    executeResults$incidence_summary <- enforceMinCellValue(executeResults$incidence_summary, "OUTCOMES_PE", minCellCount)
+    executeResults$incidence_summary <- enforceMinCellValue(executeResults$incidence_summary, "OUTCOMES", minCellCount)
+    executeResults$incidence_summary <- enforceMinCellStats(executeResults$incidence_summary)
   }
 
-  readr::write_csv(executeResults, file.path(exportFolder, "incidence_summary.csv")) # this will be renamed later
+  for (tableName in names(executeResults)) {
+    tableData <- executeResults[[tableName]]
+    if (tableName == 'incidence_summary') {
+      if (nrow(tableData) > 0) {
+        tableData$database_id <- jobContext$moduleExecutionSettings$databaseId
+      } else {
+        tableData$database_id <- character(0)
+      }
+    }
+    readr::write_csv(tableData, file.path(exportFolder, paste0(moduleInfo$TablePrefix, tableName, ".csv")))
+  }
+  
+  # in addition to the output of the module, we will produce a T-O lookup table that can be used to filter results
+  # to either 'Outcomes for T' or 'Targets for Outcomes'
+  
+  targetOutcomeDfList <- lapply(irDesign$analysisList, function(analysis) {
+    outcomeDefs <- Filter(function (o) o$id %in% analysis$outcomes, irDesign$outcomeDefs)
+    outcome_cohort_id <- sapply(outcomeDefs, function(o) o$cohortId)
+    as.data.frame(expand.grid(target_cohort_id = analysis$targets, outcome_cohort_id = outcome_cohort_id))
+  })
+  
+  target_outcome_ref <- unique(do.call(rbind, targetOutcomeDfList))
+  target_outcome_ref$ref_id <- refId
+  readr::write_csv(target_outcome_ref, file.path(exportFolder, paste0(moduleInfo$TablePrefix,"target_outcome_ref",".csv")))
 
   moduleInfo <- ParallelLogger::loadSettingsFromJson("MetaData.json")
   resultsDataModel <- readr::read_csv(file = "resultsDataModelSpecification.csv", show_col_types = FALSE)
-  newTableNames <- paste0(moduleInfo$TablePrefix, resultsDataModel$"table_name")
-  # Rename export files based on table prefix
-  file.rename(
-    file.path(exportFolder, paste0(unique(resultsDataModel$"table_name"), ".csv")),
-    file.path(exportFolder, paste0(unique(newTableNames), ".csv"))
-  )
-  resultsDataModel$table_name <- newTableNames
+  resultsDataModel$tableName <-paste0(moduleInfo$TablePrefix, resultsDataModel$tableName)
   readr::write_csv(resultsDataModel, file.path(exportFolder, "resultsDataModelSpecification.csv"))
 }
 
