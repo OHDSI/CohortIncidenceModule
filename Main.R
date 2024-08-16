@@ -79,6 +79,7 @@ execute <- function(jobContext) {
   }
 
   refId <- 1 # this should be part of execution settings
+  moduleInfo <- ParallelLogger::loadSettingsFromJson("MetaData.json")
   
   rlang::inform("Validating inputs")
   validate(jobContext)
