@@ -157,7 +157,7 @@ execute <- function(jobContext) {
 
   moduleInfo <- ParallelLogger::loadSettingsFromJson("MetaData.json")
   resultsDataModel <- readr::read_csv(file = "resultsDataModelSpecification.csv", show_col_types = FALSE)
-  resultsDataModel$tableName <-paste0(moduleInfo$TablePrefix, resultsDataModel$tableName)
+  resultsDataModel$table_name <-paste0(moduleInfo$TablePrefix, resultsDataModel$table_name)
   readr::write_csv(resultsDataModel, file.path(exportFolder, "resultsDataModelSpecification.csv"))
 }
 
