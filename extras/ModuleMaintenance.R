@@ -74,7 +74,7 @@ updatedPackages <- list(
     Source = "Repository",
     Repository = "CRAN"
   ),  
-  "OHDSI/CohortIncidence@v3.3.0",
+  "OHDSI/CohortIncidence@v4.0.0",
   "OHDSI/CohortGenerator@v0.8.1",
   "OHDSI/ResultModelManager@v0.5.6"
 )

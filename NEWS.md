@@ -1,3 +1,9 @@
+CohortIncidenceModule 0.5.0
+=======================
+- Update dependency to CohortIncidence 4.0.0
+- Adjust results model spec to match v4.0.0 output
+
+
 CohortIncidenceModule 0.4.1
 =======================
 - Adding DuckDB to renv.lock file
