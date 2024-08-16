@@ -22,14 +22,14 @@
     },
     "CohortIncidence": {
       "Package": "CohortIncidence",
-      "Version": "3.3.0",
+      "Version": "4.0.0",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "OHDSI",
       "RemoteRepo": "CohortIncidence",
-      "RemoteRef": "v3.3.0",
-      "RemoteSha": "92c4b7ca1e6db61771addbe4933c9120afe63a99"
+      "RemoteRef": "v4.0.0",
+      "RemoteSha": "ac147182ced2461d515041b385962062309c473f"
     },
     "DBI": {
       "Package": "DBI",
